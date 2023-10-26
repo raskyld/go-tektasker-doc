@@ -1,0 +1,61 @@
+---
+title: go-tektasker
+description: Get started building your docs site with Starlight.
+template: splash
+hero:
+  tagline: build Tekton task from code
+  image:
+    file: ../../assets/houston.webp
+  actions:
+    - text: Getting Started
+      link: /guides/example/
+      icon: right-arrow
+      variant: primary
+    - text: Star us
+      link: https://starlight.astro.build
+      icon: github
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Start within minutes
+
+### 1. Install Tektasker
+
+You can either build it yourself:
+
+```shell
+go install github.com/raskyld/go-tektasker
+```
+
+Or download it from official Releases.
+
+### 2.
+
+## Features
+
+<CardGrid stagger>
+	<Card title="Task Development" icon="laptop">
+		`tektasker init` will generate a project with a
+        [TaskFile](https://taskfile.dev) providing the glue between
+        the different components involved in task creation.
+	</Card>
+	<Card title="Manifest as a Service" icon="document">
+		Do you enjoy writing YAML? Me neither. Let Tektasker
+        write your Tekton Task CRD so you don't have to 😌
+	</Card>
+	<Card title="Fast dev workflow" icon="rocket">
+		Once you've configured Tektasker all you need is one
+        `task apply` to build and ship your Task to your development
+        cluster.
+	</Card>
+	<Card title="Kustomize!" icon="add-document">
+		The generated manifest for your Task doesn't comply with your
+        Kubernetes cluster policy? Tektasker will generate a base
+        Kustomization. All that is left to do is writing overlays.
+	</Card>
+    <Card title="Don't leave your IDE" icon="bars">
+		My goal with this project is to allow you to stay in your IDE
+        as much as possible. You can do a lot writing only Go code 😏
+	</Card>
+</CardGrid>
