@@ -5,10 +5,14 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'Tektasker',
+			title: 'go-tektasker',
+			logo: {
+				src: './src/assets/go-tektasker.svg'
+			},
 			social: {
 				github: 'https://github.com/raskyld/tektasker',
 			},
+			favicon: '/favicon.svg',
 			sidebar: [
 				{
 					label: 'Guides',
