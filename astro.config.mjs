@@ -15,6 +15,10 @@ export default defineConfig({
 			favicon: '/favicon.svg',
 			sidebar: [
 				{
+					label: 'General',
+					autogenerate: { directory: 'general' },
+				},
+				{
 					label: 'Guides',
 					items: [
 						// Each item here is one entry in the navigation menu.

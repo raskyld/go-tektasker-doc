@@ -1,0 +1,89 @@
+---
+title: Installation
+description: How to install go-tektasker?
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+
+## Install Binary
+
+### With `go install`
+
+```shell
+go install github.com/raskyld/go-tektasker@latest
+```
+
+### From Releases
+
+You can download `go-tektasker` from the [Official Releases][releases] page.
+
+[releases]: https://github.com/raskyld/go-tektasker/releases
+
+## Dependencies
+
+### Tektasker as a standalone
+
+**Tektasker** can be used as a standalone tool to:
+- Generate YAML manifest from your Go package `go-tektasker gen manifest`
+- Generate Go helper code for your types marked as params, results and other Tekton construct
+  with `go-tektasker gen go`
+- Scaffold a base project with a Taskfile providing an opinionated development environment `go-tektasker init`
+
+All you need for that is to have `go` installed.
+
+### Tektasker's opinionated development environment
+
+If you want to use the opinionated development environment provisioned by `go-tektasker init`, you will need
+the following dependencies.
+
+:::note
+There is an open issue [#28](https://github.com/raskyld/go-tektasker/issues/28) whose goal is
+to ease the installation of requirements. Do not hesitate to contribute either by sharing
+your ideas or opening a PR.
+:::
+
+#### `kubectl`
+
+You need kubectl to `apply` the task to your cluster.
+
+#### A Kubernetes cluster with Tekton Pipelines
+
+You need a Kubernetes Cluster with Tekton installed.
+
+As of now, we only support generating tasks and manifests for
+the *apiVersion* `tekton.dev/v1`. Please, [raise an issue][gh-issue] if you
+would like **Tektasker** to support other version!
+
+**Tektasker** dev env has been tested against the following local kubernetes environment solutions:
+- Rancher Desktop
+- KinD
+
+<LinkCard
+    title="Configuration"
+    href="/general/configuration/"
+    description="See this page to learn more about the different possible setup"
+/>
+
+#### Taskfile
+
+An alternative to *GNU Make* made in Go and reading YAML.
+
+See [installation instructions][taskfile-install] or just run:
+
+```shell
+go install github.com/go-task/task/v3/cmd/task@latest
+```
+
+[taskfile-install]: https://taskfile.dev/installation/
+
+#### `ko` builder
+
+A fast and simple container image builder for Go apps.
+
+See [installation instructions][ko-install] or just run:
+
+```shell
+go install github.com/google/ko@latest
+```
+
+[ko-install]: https://ko.build/install/
