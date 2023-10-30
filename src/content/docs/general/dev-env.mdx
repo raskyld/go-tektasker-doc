@@ -2,3 +2,75 @@
 title: Development Environment
 description: How to use Tektasker's Dev Env?
 ---
+
+## Structure
+
+New projects scaffolded using `go-tektasker init` come with an opinionated
+development environment.
+
+It is composed of:
+- a `.env` file, allowing you to customize the behavior of the environment.
+- a `Taskfile.yaml` file that is an equivalent of makefiles, see [TaskFile][taskfile]
+  for more information.
+
+## Usage
+
+We tried to make the development environment as simple as possible
+so you can understand it quickly and tune it to your taste. This is why we chose
+[Taskfile][taskfile] over of *GNU Make*: the YAML spec should be simpler to
+understand.
+
+### Tasks
+
+- `task` shows the status of your dev env and list available tasks.
+- `task status` shows the status of your dev env, this is useful to ensure you have
+  all dependencies installed.
+- `task manifest` generates your task's YAML manifest.
+- `task generate` generates go helper code for your params and results.
+- `task apply` generates everything and apply your task using the configured context.
+
+## Configuration
+
+All configuration options are documented in the `.env` file.
+
+## Requirements
+
+Please, see the [installation instructions](/general/installation/#tektaskers-development-environment).
+
+### Kubernetes Cluster
+
+Indeed, a Kubernetes cluster with Tekton Pipelines installed is needed.
+You also need to be able to push container images to a registry this cluster can pull from.
+
+The recommended setup is:
+- Use a local Kubernetes environment for development (e.g. KinD, Rancher Desktop, ...)
+- Integrate Tektasker in your deployment process (CI/CD, GitOps, ...) for production.
+
+:::note
+We recommend setting `APPLY_CONTEXT` in `.env` to the Kubernetes context that
+should be used for development, otherwise, `task apply` will use the current
+context which could lead to mistakes.
+:::
+
+#### KinD
+
+You only need to change `KO_DOCKER_REPO` to `kind.local` so `ko` loads your task
+container image directly to your KinD cluster.
+
+Note though that `ko` will, by default, try to load the image into the default
+(`kind`) cluster, if you want to use a specific named KinD cluster, you need to
+specify the name with `KIND_CLUSTER_NAME`. To know more, see
+[`ko` documentation][ko-local].
+
+Enjoy!
+
+#### Rancher Desktop
+
+By default, `KO_DOCKER_REPO` is set to `ko.local` which instructs `ko` to use
+the local docker socket to push the image.
+
+Be sure your Rancher Desktop is using the default `/var/run/docker.sock` or use
+`DOCKER_HOST` to make `ko` communicates with the correct Docker socket.
+
+[taskfile]: https://taskfile.dev
+[ko-local]: https://ko.build/configuration/#local-publishing-options
