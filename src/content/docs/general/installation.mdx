@@ -5,6 +5,14 @@ description: How to install go-tektasker?
 
 import { LinkCard } from '@astrojs/starlight/components';
 
+:::note
+As of now, we only support generating tasks and manifests for
+the *apiVersion* `tekton.dev/v1`. Please, [raise an issue][gh-issues] if you
+would like **Tektasker** to support other version!
+:::
+
+[gh-issues]: https://github.com/raskyld/go-tektasker/issues/new/choose
+
 ## Install Binary
 
 ### With `go install`
@@ -17,7 +25,14 @@ go install github.com/raskyld/go-tektasker@latest
 
 You can download `go-tektasker` from the [Official Releases][releases] page.
 
+:::tip
+The release process of the project is [SLSA][slsa] compliant, so you may verify the binaries
+by downloading the `.intoto` provenance files and using [the `slsa-verifier` cli][slsa-verifier].
+:::
+
 [releases]: https://github.com/raskyld/go-tektasker/releases
+[slsa]: https://slsa.dev
+[slsa-verifier]: https://github.com/slsa-framework/slsa-verifier
 
 ## Dependencies
 
@@ -31,7 +46,7 @@ You can download `go-tektasker` from the [Official Releases][releases] page.
 
 All you need for that is to have `go` installed.
 
-### Tektasker's opinionated development environment
+### Tektasker's development environment
 
 If you want to use the opinionated development environment provisioned by `go-tektasker init`, you will need
 the following dependencies.
@@ -50,17 +65,13 @@ You need kubectl to `apply` the task to your cluster.
 
 You need a Kubernetes Cluster with Tekton installed.
 
-As of now, we only support generating tasks and manifests for
-the *apiVersion* `tekton.dev/v1`. Please, [raise an issue][gh-issue] if you
-would like **Tektasker** to support other version!
-
 **Tektasker** dev env has been tested against the following local kubernetes environment solutions:
 - Rancher Desktop
 - KinD
 
 <LinkCard
-    title="Configuration"
-    href="/general/configuration/"
+    title="Development Environment"
+    href="/general/dev-env/"
     description="See this page to learn more about the different possible setup"
 />
 
