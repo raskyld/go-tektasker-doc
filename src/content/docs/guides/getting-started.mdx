@@ -3,9 +3,11 @@ title: Getting Started
 description: Getting Started with Tektasker.
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
 ## Introduction
 
-In this guide, we will initiate a go project and turns it into an usable Tekton
+In this guide, we will initiate a go project and turn it into an usable Tekton
 Task using `go-tektasker`.
 
 ## Requirements
@@ -28,6 +30,8 @@ go mod init example.com/my-task
 go-tektasker init my-task
 ```
 
+[install]: /general/installation/
+
 ### Step 2: Get familiar with the structure
 
 You will find a `task.go` containing an example of a task using tektasker.
@@ -39,10 +43,14 @@ can remove the `.env` and `Taskfile.yaml` if you prefer to use
 This environment behavior defaults to:
 - Write your task manifest into the `deployment/` directory.
 - Generate go helper code package in `internal/tekton`.
+- Build and push your task container image to `ko.local` (controlled by `KO_DOCKER_REPO`)
+- Apply your task to the currently used Kubernetes Context (controlled by `APPLY_CONTEXT`)
+
+[dev-env]: /general/dev-env/
 
 ### Step 3: Understand the markers
 
-Tektasker uses a concept borrowed from [kubebuilder][kb] that is
+Tektasker uses a concept borrowed from [kubebuilder][kb]:
 [markers][kb-markers].
 
 Markers are go comments with a special syntax that are used to
@@ -58,15 +66,28 @@ You can see the list of available markers by using
 help about a specific marker, specify it as an
 argument to the previous command.
 
+[kb]: https://github.com/kubernetes-sigs/kubebuilder
+[kb-markers]: https://book.kubebuilder.io/reference/markers.html
+
 ### Step 4: Follow the instruction in `task.go`
 
 You will be asked to generate the go helper code and remove
 the comments before the `MustRead` and `MustWrite` instructions.
 
-If you want to use Tektasker as a standalone, you can use
-`go-tektasker gen go internal/ tekton` to generate the go code in
-`internal/tekton`, otherwise, if you use the
-[Development Environment][dev-env], simply run `task generate`.
+<Tabs>
+<TabItem label="With dev env">
+```shell
+task generate
+```
+</TabItem>
+
+<TabItem label="Tektasker Standalone">
+```shell
+# Install the Go Helper Package in internal/ under the directory tekton
+go-tektasker gen go internal/ tekton
+```
+</TabItem>
+</Tabs>
 
 Feel free to change the format of the output message that will be stored
 in the `lm` result.
@@ -80,9 +101,19 @@ exists without the `Must` prefix.
 
 ### Step 5: Create the YAML manifest
 
-Simply run `task manifest` in the dev env.
+<Tabs>
+<TabItem label="With dev env">
+```shell
+task manifest
+```
+</TabItem>
 
-Otherwise, use `go-tektasker gen manifest deployment/`.
+<TabItem label="Tektasker Standalone">
+```shell
+go-tektasker gen manifest deployment/
+```
+</TabItem>
+</Tabs>
 
 This will create a `base` Kustomization for your task in the
 `deployment/` directory.
@@ -101,3 +132,14 @@ Otherwise, you need to manually:
 - Apply the overlay you created on your cluster.
 
 ## Conclusion
+
+This was a short introduction to Tektasker.
+The project is still in alpha stage so the documentation and features should get richer in the future.
+Do not hesitate to give us feedback by:
+- raising issues on [`go-tektasker` repository][tk-repo] for feedback on the project.
+- raising issues on [`go-tektasker-doc` repository][tk-doc-repo] for feedback on the documentation.
+- By reaching me on [the Tekton slack][tekton-slack] `@raskyld`!
+
+[tk-repo]: https://github.com/raskyld/go-tektasker
+[tk-doc-repo]: https://github.com/raskyld/go-tektasker-doc
+[tekton-slack]: https://github.com/tektoncd/community/blob/main/contact.md#slack
