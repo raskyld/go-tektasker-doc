@@ -10,7 +10,7 @@ export default defineConfig({
 				src: './src/assets/go-tektasker.svg'
 			},
 			social: {
-				github: 'https://github.com/raskyld/tektasker',
+				github: 'https://github.com/raskyld/go-tektasker',
 			},
 			favicon: '/favicon.svg',
 			sidebar: [
